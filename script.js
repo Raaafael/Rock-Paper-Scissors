@@ -41,34 +41,52 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice) {
 
+    const roundResultDisplay = document.getElementById("round-result");
+
+    const winText = document.createElement("p");
+    winText.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
+    winText.setAttribute(`style`, `color: green;`);
+
+    const loseText = document.createElement("p");
+    loseText.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
+    loseText.setAttribute(`style`, `color: red;`);
+
+    const drawText = document.createElement("p");
+    drawText.textContent = `It's a Draw!`;
+    drawText.setAttribute(`style`, `color: grey;`);
+
     if (humanChoice == "rock" && computerChoice == "paper") {
-        alert("You lose! Paper beats Rock.")
+        roundResultDisplay.appendChild(loseText);
         ++computerScore;
         ++round;
     } else if (humanChoice == "rock" && computerChoice == "scissor") {
-        alert("You Win! rock beats scissor.")
+        roundResultDisplay.appendChild(winText);
         ++humanScore;
         ++round;
     } else if (humanChoice == "paper" && computerChoice == "scissor") {
-        alert("You lose! scissor beats Paper.")
+        roundResultDisplay.appendChild(loseText);
         ++computerScore;
         ++round;
     } else if (humanChoice == "paper" && computerChoice == "rock") {
-        alert("You Win! Paper beats Rock.")
+        roundResultDisplay.appendChild(winText);
         ++humanScore;
         ++round;
     } else if (humanChoice == "scissor" && computerChoice == "paper") {
-        alert("You Win! Scissor beats Paper.")
+        roundResultDisplay.appendChild(winText);
         ++humanScore;
         ++round;
     } else if (humanChoice == "scissor" && computerChoice == "rock") {
-        alert("You Lose! Rock beats Scissor.")
+        roundResultDisplay.appendChild(loseText);
         ++computerScore;
         ++round;
     } else if (humanChoice == computerChoice) {
-        alert("It's a draw!")
+        roundResultDisplay.appendChild(drawText);
         ++round;
     } else { alert("Invalid input!") };
+
+    if (roundResultDisplay.firstElementChild && round > 1) {
+        roundResultDisplay.firstElementChild.remove();
+    };
 
     
     console.log(`round: ${round}`)
